@@ -1,0 +1,197 @@
+import { Text, Flex, Heading, Box } from 'rebass';
+import { CodeSurfer, CodeSurferColumns, Step } from 'code-surfer';
+import { nightOwl } from '@code-surfer/themes';
+export const theme = nightOwl;
+
+# QT 地图功能实现
+
+<Text color="gray">静态编辑</Text>
+<Text color="gray">动态游戏</Text>
+
+---
+
+## 地图结构
+
+<Flex alignItems="center">
+	<Box display="block">
+		<Text>🧑 人物</Text>
+		<Text>🧱 地形</Text>
+		<Text>✨ 道具</Text>
+		<Text>🦁 怪兽</Text>
+		<Text mt={3} fontSize={2} color="gray">
+			均为可绘制的对象
+		</Text>
+	</Box>
+	<Text mr={3}>+</Text>
+	<Text>🚀动画</Text>
+</Flex>
+
+---
+
+<CodeSurferColumns theme={nightOwl} sizes={[1,2]}>
+
+<Step subtitle="地图中对象的类型信息">
+
+### 地图信息存储 json
+
+```json 3:4 file=./map.json
+```
+
+</Step>
+
+<Step subtitle="地图中对象的位置信息">
+
+### 地图信息存储 json
+
+```json 5:8 file=./map.json
+```
+
+</Step>
+
+
+</CodeSurferColumns>
+
+---
+
+<CodeSurferColumns theme={nightOwl} sizes={[1,2]}>
+
+<Step subtitle="首先读取文件转为jsonDoc">
+
+### 地图信息 Parse
+
+```cpp 4:19 file=./src/parse.cpp.txt
+```
+
+</Step>
+
+<Step subtitle="根据对应信息构造相应的对象">
+
+### 地图信息 Parse
+
+```cpp 20:35 file=./src/parse.cpp.txt
+```
+
+</Step>
+
+
+<Step subtitle="根据地图中对象生成jsonDoc">
+
+### 地图信息 Write
+
+```cpp 41:53 file=./src/parse.cpp.txt
+```
+
+</Step>
+
+
+<Step subtitle="写入文件">
+
+### 地图信息 Write
+
+```cpp 54:59 file=./src/parse.cpp.txt
+```
+
+</Step>
+
+
+</CodeSurferColumns>
+
+---
+
+<CodeSurferColumns theme={nightOwl} sizes={[1,2]}>
+
+<Step subtitle="首先定义Map类，管理所有地图对象">
+
+### 地图绘制
+
+```cpp 10:12,8 file=./src/map.h.txt
+```
+
+</Step>
+
+<Step subtitle="Map类依次调用地图对象的绘制函数">
+
+### 地图绘制
+
+```cpp 9:15 file=./src/map.base.cpp.txt
+```
+
+</Step>
+
+
+</CodeSurferColumns>
+
+---
+
+<CodeSurferColumns theme={nightOwl} sizes={[1,2]}>
+
+<Step subtitle="使用定时器，按照固定频率进行刷新">
+
+### 地图动画
+
+```cpp 13:19 file=./src/map.h.txt
+```
+
+</Step>
+
+<Step subtitle="依次调用地图对象的更新函数，同时刷新绘制">
+
+### 地图动画
+
+```cpp 17:23 file=./src/map.base.cpp.txt
+```
+
+</Step>
+
+
+</CodeSurferColumns>
+
+
+---
+<CodeSurferColumns theme={nightOwl} sizes={[1,2]}>
+
+<Step subtitle="增加dockWidget，拖动以增加地图对象或者移动地图对象">
+
+### 地图编辑
+
+```cpp 5:22 file=./src/dock.h.txt showNumbers
+```
+
+</Step>
+
+<Step subtitle="在dockWidget中拖动对象">
+
+### 地图编辑
+
+```cpp 1:28 file=./src/dock.cpp.txt showNumbers
+```
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+<CodeSurferColumns theme={nightOwl} sizes={[1,2]}>
+
+<Step subtitle="在Map内拖动以移动对象位置">
+
+### 地图编辑
+
+```cpp 1:36 file=./src/map.drag.cpp.txt showNumbers
+```
+
+</Step>
+
+<Step subtitle="在Map内拖动以移动对象位置">
+
+### 地图编辑
+
+```cpp 60:86 file=./src/map.drag.cpp.txt showNumbers
+```
+
+</Step>
+
+
+</CodeSurferColumns>
+

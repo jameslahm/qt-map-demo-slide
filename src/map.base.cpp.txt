@@ -1,0 +1,30 @@
+Map::~Map(){
+    for(int i=0;i<terrains.size();i++){
+        delete terrains[i];
+    }
+    terrains.clear();
+}
+
+
+void Map::init(){
+    foreach(Terrain* terrain,terrains){
+        terrain->setParent(this);
+        terrain->show();
+        terrain->setGeometry(terrain->r);
+    }
+}
+
+void Map::update(){
+    foreach(Terrain* terrain,terrains){
+        if(s==Map::State::IDLE)terrain->update();
+        qDebug()<<terrain->r<<endl;
+        terrain->setGeometry(terrain->r);
+    }
+}
+
+void Map::save(){
+    Util::Parse::write("map.json",this);
+    QMessageBox msgBox;
+    msgBox.setText("The Map has been save successfully!");
+    msgBox.exec();
+}
